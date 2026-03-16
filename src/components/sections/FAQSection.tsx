@@ -2,39 +2,9 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
+import { useLanguage } from "@/lib/LanguageContext";
 
-const faqs = [
-  {
-    q: "Was kostet es, einen Kleinbus zu mieten?",
-    a: "Die Kosten hängen von verschiedenen Faktoren ab: Fahrzeuggröße, Mietdauer, Strecke und ob Sie einen Fahrer benötigen. Kontaktieren Sie uns für ein unverbindliches Angebot – wir finden garantiert die passende Lösung für Ihr Budget.",
-  },
-  {
-    q: "Kann ich einen Kleinbus auch ohne Fahrer mieten?",
-    a: "Ja, Sie können unsere Kleinbusse sowohl mit als auch ohne Fahrer mieten. Für Fahrzeuge bis 9 Sitze genügt ein normaler PKW-Führerschein (Klasse B). Für größere Busse benötigen Sie den Führerschein Klasse D1 oder D.",
-  },
-  {
-    q: "Wie viele Rollstühle passen in Ihre Fahrzeuge?",
-    a: "Unsere speziell ausgestatteten Rollstuhlbusse bieten Platz für bis zu 6 Rollstühle. Alle Fahrzeuge verfügen über elektrische Rampen für einen bequemen und sicheren Einstieg.",
-  },
-  {
-    q: "Bieten Sie auch Flughafentransfers an?",
-    a: "Ja, wir bieten zuverlässige Flughafentransfers zu allen großen Flughäfen in der Region an – darunter Frankfurt, Stuttgart und Mannheim. Wir holen Sie ab und bringen Sie pünktlich zum Terminal.",
-  },
-  {
-    q: "Wie weit im Voraus sollte ich buchen?",
-    a: "Wir empfehlen, mindestens 1-2 Wochen im Voraus zu buchen, besonders in der Hauptsaison und an Wochenenden. Für kurzfristige Anfragen rufen Sie uns einfach an – wir tun unser Bestes, Ihnen zu helfen.",
-  },
-  {
-    q: "Sind Ihre Fahrzeuge klimatisiert?",
-    a: "Ja, alle unsere Kleinbusse und Transporter sind mit modernen Klimaanlagen ausgestattet. Auch unsere Rollstuhlfahrzeuge verfügen über Klimatisierung für maximalen Komfort.",
-  },
-  {
-    q: "Kann ich den Bus für eine Klassenfahrt buchen?",
-    a: "Selbstverständlich! Wir sind auf Klassenfahrten und Gruppenausflüge spezialisiert. Unsere erfahrenen Fahrer bringen Schulklassen sicher ans Ziel. Wir bieten Busse bis zu 28 Sitzplätze an.",
-  },
-];
-
-function FAQItem({ item, index }: { item: typeof faqs[0]; index: number }) {
+function FAQItem({ item, index }: { item: { q: string; a: string }; index: number }) {
   const [open, setOpen] = useState(false);
   return (
     <div style={{ borderBottom: "1px solid var(--border-card)", overflow: "hidden" }}>
@@ -79,12 +49,24 @@ function FAQItem({ item, index }: { item: typeof faqs[0]; index: number }) {
 export default function FAQSection() {
   const header = useReveal(0);
   const list = useReveal(150);
+  const { t } = useLanguage();
+
+  const faqs = [
+    { q: t.faq.q1, a: t.faq.a1 },
+    { q: t.faq.q2, a: t.faq.a2 },
+    { q: t.faq.q3, a: t.faq.a3 },
+    { q: t.faq.q4, a: t.faq.a4 },
+    { q: t.faq.q5, a: t.faq.a5 },
+    { q: t.faq.q6, a: t.faq.a6 },
+    { q: t.faq.q7, a: t.faq.a7 },
+  ];
+
   return (
     <section style={{ backgroundColor: "var(--bg-white)", padding: "7rem 2.5rem" }}>
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
         <div ref={header.ref} className={`reveal ${header.visible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-          <div className="section-label" style={{ justifyContent: "center" }}>Häufige Fragen</div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>Alles was Sie wissen müssen</h2>
+          <div className="section-label" style={{ justifyContent: "center" }}>{t.faq.label}</div>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>{t.faq.title}</h2>
         </div>
         <div ref={list.ref} className={`reveal ${list.visible ? "visible" : ""}`}>
           {faqs.map((item, i) => <FAQItem key={i} item={item} index={i} />)}

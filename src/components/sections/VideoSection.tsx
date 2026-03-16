@@ -1,9 +1,11 @@
 "use client";
 import { useReveal } from "@/hooks/useReveal";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function VideoSection() {
   const header = useReveal(0);
   const video = useReveal(200);
+  const { t } = useLanguage();
 
   return (
     <section style={{ backgroundColor: "#1A1A2E", padding: "7rem 2.5rem", position: "relative", overflow: "hidden" }}>
@@ -12,11 +14,11 @@ export default function VideoSection() {
         <div ref={header.ref} className={`reveal ${header.visible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem", color: "#DB0F10", fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600, marginBottom: "1rem", fontFamily: "var(--font-body), sans-serif" }}>
             <span style={{ display: "block", width: "40px", height: "2px", background: "linear-gradient(to right, #DB0F10, transparent)", borderRadius: "1px" }} />
-            Video
+            {t.video.label}
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading), 'Playfair Display', serif", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "white", lineHeight: 1.15, marginBottom: "1rem" }}>Erleben Sie unseren Service</h2>
+          <h2 style={{ fontFamily: "var(--font-heading), 'Oswald', sans-serif", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "white", lineHeight: 1.15, marginBottom: "1rem" }}>{t.video.title}</h2>
           <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem", lineHeight: 1.75, maxWidth: "580px", margin: "0 auto", fontFamily: "var(--font-body), sans-serif" }}>
-            Sehen Sie selbst, wie wir Gruppen, Familien und Menschen mit Einschränkungen sicher und komfortabel transportieren.
+            {t.video.subtitle}
           </p>
         </div>
         <div ref={video.ref} className={`reveal ${video.visible ? "visible" : ""}`} style={{ position: "relative", maxWidth: "900px", margin: "0 auto" }}>

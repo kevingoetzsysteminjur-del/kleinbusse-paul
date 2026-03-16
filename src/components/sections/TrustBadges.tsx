@@ -1,16 +1,20 @@
 "use client";
+import { Shield, BadgeCheck, Accessibility, Star, Lock } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
-
-const badges = [
-  { icon: "🛡️", text: "Seit über 20 Jahren" },
-  { icon: "✅", text: "TÜV-geprüfte Fahrzeuge" },
-  { icon: "♿", text: "100% Barrierefrei" },
-  { icon: "⭐", text: "Höchste Kundenzufriedenheit" },
-  { icon: "🔒", text: "DSGVO-konform" },
-];
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function TrustBadges() {
   const { ref, visible } = useReveal(0);
+  const { t } = useLanguage();
+
+  const badges = [
+    { icon: <Shield size={18} color="#DB0F10" />, text: t.trust.badge1 },
+    { icon: <BadgeCheck size={18} color="#DB0F10" />, text: t.trust.badge2 },
+    { icon: <Accessibility size={18} color="#DB0F10" />, text: t.trust.badge3 },
+    { icon: <Star size={18} color="#DB0F10" />, text: t.trust.badge4 },
+    { icon: <Lock size={18} color="#DB0F10" />, text: t.trust.badge5 },
+  ];
+
   return (
     <section style={{ backgroundColor: "var(--bg-off)", padding: "1.75rem 2.5rem", borderBottom: "1px solid var(--border-card)" }}>
       <div
@@ -20,7 +24,7 @@ export default function TrustBadges() {
       >
         {badges.map((b, i) => (
           <div key={b.text} className={`reveal ${visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 60}ms`, display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ fontSize: "1.1rem" }}>{b.icon}</span>
+            {b.icon}
             <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--text-light)", fontFamily: "var(--font-body), sans-serif", whiteSpace: "nowrap" }}>{b.text}</span>
           </div>
         ))}

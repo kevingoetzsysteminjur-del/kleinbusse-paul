@@ -62,10 +62,12 @@ export default function Preloader() {
       {/* Company name */}
       <div style={{
         marginTop: "1.5rem",
-        fontFamily: "'Playfair Display', serif",
+        fontFamily: "var(--font-heading), 'Oswald', sans-serif",
         fontSize: "1.5rem",
         fontWeight: 700,
         color: "#FFFFFF",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
         opacity: phase === "enter" ? 0 : 1,
         transition: "opacity 0.4s ease 0.3s",
         animation: phase === "blink" ? "preloaderBlink 0.35s ease-in-out 4" : "none",

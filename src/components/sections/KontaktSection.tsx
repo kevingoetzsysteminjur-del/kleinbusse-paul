@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import { MapPin, Phone, Printer, Mail, Clock } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const inputBase: React.CSSProperties = {
   width: "100%", boxSizing: "border-box",
@@ -19,7 +20,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   );
 }
 
-function GoogleReviewBadge() {
+function GoogleReviewBadge({ label }: { label: string }) {
   return (
     <a
       href="https://g.page/r/review"
@@ -45,7 +46,7 @@ function GoogleReviewBadge() {
       </svg>
       <div>
         <div style={{ fontSize: "0.78rem", color: "var(--text-light)", fontFamily: "var(--font-body)", marginBottom: "0.2rem" }}>
-          Bewerten Sie uns auf Google
+          {label}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
           <div style={{ display: "flex", gap: "0.1rem" }}>
@@ -67,6 +68,7 @@ export default function KontaktSection() {
   const infoCard = useReveal(100);
   const form = useReveal(200);
   const [selectedService, setSelectedService] = useState("");
+  const { t } = useLanguage();
 
   useEffect(() => {
     const preselect = sessionStorage.getItem("hero_service");
@@ -77,11 +79,11 @@ export default function KontaktSection() {
   }, []);
 
   const contacts = [
-    { icon: <MapPin size={18} />, label: "Adresse", value: "Am Eisweiher 14, 74821 Mosbach", href: undefined },
-    { icon: <Phone size={18} />, label: "Telefon", value: "06261 2526", href: "tel:062612526" },
-    { icon: <Printer size={18} />, label: "Fax", value: "06261 37954", href: undefined },
-    { icon: <Mail size={18} />, label: "E-Mail", value: "info@kleinbusse-paul.de", href: "mailto:info@kleinbusse-paul.de" },
-    { icon: <Clock size={18} />, label: "Öffnungszeiten", value: "Mo – Fr, 8:00 – 17:00 Uhr", href: undefined },
+    { icon: <MapPin size={18} />, label: t.contact.addressLabel, value: "Am Eisweiher 14, 74821 Mosbach", href: undefined },
+    { icon: <Phone size={18} />, label: t.contact.phoneLabel, value: "06261 2526", href: "tel:062612526" },
+    { icon: <Printer size={18} />, label: t.contact.faxLabel, value: "06261 37954", href: undefined },
+    { icon: <Mail size={18} />, label: t.contact.emailLabel, value: "info@kleinbusse-paul.de", href: "mailto:info@kleinbusse-paul.de" },
+    { icon: <Clock size={18} />, label: t.contact.hoursLabel, value: t.contact.hoursValue, href: undefined },
   ];
 
   return (
@@ -89,14 +91,14 @@ export default function KontaktSection() {
       <section id="kontakt" style={{ backgroundColor: "var(--bg-white)", padding: "7rem 2.5rem" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div ref={header.ref} className={`reveal ${header.visible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <div className="section-label" style={{ justifyContent: "center" }}>Kontakt</div>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>Sprechen Sie uns an</h2>
+            <div className="section-label" style={{ justifyContent: "center" }}>{t.contact.label}</div>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>{t.contact.title}</h2>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "2.5rem", alignItems: "start" }} className="kontakt-grid">
             <div ref={infoCard.ref} className={`reveal-left ${infoCard.visible ? "visible" : ""}`}
               style={{ background: "var(--bg-off)", borderLeft: "4px solid var(--red)", borderRadius: "16px", padding: "2.5rem", boxShadow: "var(--shadow-card)" }}>
-              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, marginBottom: "2rem", color: "var(--text-heading)" }}>Hier finden Sie uns</h3>
+              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, marginBottom: "2rem", color: "var(--text-heading)" }}>{t.contact.infoTitle}</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                 {contacts.map((c, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
@@ -112,22 +114,22 @@ export default function KontaktSection() {
                   </div>
                 ))}
               </div>
-              <GoogleReviewBadge />
+              <GoogleReviewBadge label={t.contact.googleReview} />
             </div>
 
             <div ref={form.ref} className={`reveal-right ${form.visible ? "visible" : ""}`}>
             <form
-              action="#" onSubmit={e => { e.preventDefault(); alert("Danke für Ihre Nachricht! Wir melden uns in Kürze bei Ihnen."); }}
+              action="#" onSubmit={e => { e.preventDefault(); alert(t.contact.formSuccess); }}
               style={{ background: "var(--bg-off)", border: "1px solid var(--border-card)", borderRadius: "16px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.25rem", boxShadow: "var(--shadow-card)" }}>
-              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, color: "var(--text-heading)", marginBottom: "0.5rem" }}>Nachricht senden</h3>
+              <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, color: "var(--text-heading)", marginBottom: "0.5rem" }}>{t.contact.formTitle}</h3>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row-2">
-                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>Name *</label><Input type="text" required placeholder="Ihr Name" /></div>
-                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>E-Mail *</label><Input type="email" required placeholder="ihre@email.de" /></div>
+                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formName} *</label><Input type="text" required placeholder={t.contact.formNamePlaceholder} /></div>
+                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formEmail} *</label><Input type="email" required placeholder={t.contact.formEmailPlaceholder} /></div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row-2">
-                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>Telefon</label><Input type="tel" placeholder="06261 ..." /></div>
+                <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formPhone}</label><Input type="tel" placeholder={t.contact.formPhonePlaceholder} /></div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>Leistung *</label>
+                  <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formService} *</label>
                   <select
                     required
                     value={selectedService}
@@ -136,27 +138,27 @@ export default function KontaktSection() {
                     onFocus={e => { e.target.style.borderColor = "var(--red)"; e.target.style.boxShadow = "0 0 0 3px rgba(219,15,16,0.15)"; }}
                     onBlur={e => { e.target.style.borderColor = "var(--border-card)"; e.target.style.boxShadow = "none"; }}
                   >
-                    <option value="">Bitte wählen...</option>
-                    {["Kleinbusvermietung","Flughafentransfer","Rollstuhlfahrten/Behindertentransport","Ausflugsfahrten","Transportervermietung","Sonstiges"].map(o => <option key={o} value={o}>{o}</option>)}
+                    <option value="">{t.contact.formServiceDefault}</option>
+                    {t.serviceOptions.map(o => <option key={o} value={o}>{o}</option>)}
                   </select>
                 </div>
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>Nachricht *</label>
-                <textarea required rows={4} placeholder="Ihre Nachricht..." style={{ ...inputBase, resize: "vertical", minHeight: "120px" }}
+                <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formMessage} *</label>
+                <textarea required rows={4} placeholder={t.contact.formMessagePlaceholder} style={{ ...inputBase, resize: "vertical", minHeight: "120px" }}
                   onFocus={e => { e.target.style.borderColor = "var(--red)"; e.target.style.boxShadow = "0 0 0 3px rgba(219,15,16,0.15)"; }}
                   onBlur={e => { e.target.style.borderColor = "var(--border-card)"; e.target.style.boxShadow = "none"; }} />
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
                 <input type="checkbox" required id="dsg" style={{ marginTop: "3px", accentColor: "var(--red)", width: 16, height: 16 } as React.CSSProperties} />
                 <label htmlFor="dsg" style={{ fontSize: "0.85rem", color: "var(--text-light)", fontFamily: "var(--font-body)", lineHeight: 1.5 }}>
-                  Ich habe die <a href="/datenschutz" style={{ color: "var(--red)", textDecoration: "underline" }}>Datenschutzerklärung</a> gelesen und stimme zu. *
+                  Ich habe die <a href="/datenschutz" style={{ color: "var(--red)", textDecoration: "underline" }}>{t.contact.formPrivacyLink}</a> gelesen und stimme zu. *
                 </label>
               </div>
               <button type="submit" style={{ background: "var(--red)", color: "white", border: "none", borderRadius: "60px", padding: "1rem 2rem", fontSize: "1rem", fontWeight: 700, fontFamily: "var(--font-body)", cursor: "pointer", width: "100%", transition: "all 0.3s ease" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "var(--red-dark)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 35px var(--red-glow)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                Anfrage senden
+                {t.contact.formSubmit}
               </button>
             </form>
             </div>

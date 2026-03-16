@@ -1,5 +1,6 @@
 "use client";
 import { useReveal } from "@/hooks/useReveal";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const testimonials = [
   {
@@ -34,20 +35,21 @@ function StarRating() {
 export default function TestimonialsSection() {
   const header = useReveal(0);
   const cards = [useReveal(100), useReveal(200), useReveal(300)];
+  const { t } = useLanguage();
 
   return (
     <section style={{ backgroundColor: "var(--bg-off)", padding: "7rem 2.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={header.ref} className={`reveal ${header.visible ? "visible" : ""}`}
           style={{ textAlign: "center", marginBottom: "4rem" }}>
-          <div className="section-label" style={{ justifyContent: "center" }}>Kundenstimmen</div>
+          <div className="section-label" style={{ justifyContent: "center" }}>{t.testimonials.label}</div>
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>
-            Was unsere Kunden sagen
+            {t.testimonials.title}
           </h2>
         </div>
 
         <div className="testimonials-grid">
-          {testimonials.map((t, i) => (
+          {testimonials.map((item, i) => (
             <div
               key={i}
               ref={cards[i].ref}
@@ -62,13 +64,13 @@ export default function TestimonialsSection() {
                 fontStyle: "italic", color: "var(--text-body)", fontSize: "0.95rem",
                 lineHeight: 1.7, marginBottom: "1.5rem", flexGrow: 1,
               }}>
-                {t.text}
+                {item.text}
               </p>
               <hr style={{ border: "none", borderTop: "1px solid var(--border-card)", marginBottom: "1.25rem" }} />
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
                 <div>
-                  <div style={{ fontWeight: 600, color: "var(--text-heading)", fontSize: "0.95rem", fontFamily: "var(--font-body)" }}>{t.name}</div>
-                  <div style={{ fontSize: "0.82rem", color: "var(--text-light)", fontFamily: "var(--font-body)" }}>{t.role}</div>
+                  <div style={{ fontWeight: 600, color: "var(--text-heading)", fontSize: "0.95rem", fontFamily: "var(--font-body)" }}>{item.name}</div>
+                  <div style={{ fontSize: "0.82rem", color: "var(--text-light)", fontFamily: "var(--font-body)" }}>{item.role}</div>
                 </div>
                 <StarRating />
               </div>

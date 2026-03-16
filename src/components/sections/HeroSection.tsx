@@ -3,23 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, ChevronDown, ArrowRight } from "lucide-react";
 import { useInView } from "framer-motion";
-
-const SERVICE_MAP: Record<string, string> = {
-  "Kleinbus": "Kleinbusvermietung",
-  "Flughafentransfer": "Flughafentransfer",
-  "Rollstuhlfahrt": "Rollstuhlfahrten/Behindertentransport",
-  "Ausflugsfahrt": "Ausflugsfahrten",
-  "Transporter": "Transportervermietung",
-};
+import { useLanguage } from "@/lib/LanguageContext";
 
 function QuickRequestForm() {
+  const { t } = useLanguage();
   const [service, setService] = useState("");
   const [date, setDate] = useState("");
   const [persons, setPersons] = useState("");
 
   const handleSubmit = () => {
     if (service) {
-      sessionStorage.setItem("hero_service", SERVICE_MAP[service] ?? "");
+      sessionStorage.setItem("hero_service", service);
     }
     document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -49,7 +43,7 @@ function QuickRequestForm() {
       maxWidth: "680px",
     }}>
       <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.9rem", fontWeight: 600 }}>
-        Schnellanfrage
+        {t.hero.quickLabel}
       </p>
       <div className="quick-form-grid">
         <select
@@ -57,8 +51,8 @@ function QuickRequestForm() {
           onChange={e => setService(e.target.value)}
           style={{ ...inputStyle, appearance: "none" }}
         >
-          <option value="" disabled style={{ color: "#333" }}>Service wählen</option>
-          {Object.keys(SERVICE_MAP).map(s => (
+          <option value="" disabled style={{ color: "#333" }}>{t.hero.quickService}</option>
+          {t.serviceOptions.map(s => (
             <option key={s} value={s} style={{ color: "#333" }}>{s}</option>
           ))}
         </select>
@@ -72,7 +66,7 @@ function QuickRequestForm() {
           type="number"
           value={persons}
           onChange={e => setPersons(e.target.value)}
-          placeholder="Personen"
+          placeholder={t.hero.quickPersons}
           min={1}
           max={28}
           style={inputStyle}
@@ -99,7 +93,7 @@ function QuickRequestForm() {
           onMouseEnter={e => (e.currentTarget.style.background = "var(--red-dark)")}
           onMouseLeave={e => (e.currentTarget.style.background = "var(--red)")}
         >
-          Anfrage starten <ArrowRight size={15} />
+          {t.hero.quickSubmit} <ArrowRight size={15} />
         </button>
       </div>
       <style>{`
@@ -150,7 +144,15 @@ const fadeUp = {
 };
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+
+  const stats = [
+    { target: 28, suffix: "", label: t.hero.stat1 },
+    { target: 20, suffix: "+", label: t.hero.stat2 },
+    { target: 6, suffix: "", label: t.hero.stat3 },
+  ];
+
   return (
     <section id="hero" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "url('https://kleinbusse-paul.de/wp-content/uploads/2017/11/16-sitzer_bus.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
@@ -161,31 +163,31 @@ export default function HeroSection() {
         <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}
           style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginBottom: "2rem", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(219,15,16,0.6)", borderRadius: "50px", padding: "0.45rem 1.1rem", backdropFilter: "blur(10px)" }}>
           <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--red-light)", flexShrink: 0, animation: "red-pulse 2.5s ease-in-out infinite", display: "inline-block" }} />
-          <span style={{ color: "white", fontSize: "0.78rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Seit über 20 Jahren in Mosbach</span>
+          <span style={{ color: "white", fontSize: "0.78rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>{t.hero.badge}</span>
         </motion.div>
 
         <motion.h1 custom={1} initial="hidden" animate="visible" variants={fadeUp}
-          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 1.08, marginBottom: "1.5rem", maxWidth: "680px", fontWeight: 700, color: "white" }}>
-          Wir bringen Sie<br />
-          <span style={{ color: "var(--red-light)" }}>sicher</span>{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400 }}>ans Ziel.</em>
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 1.08, marginBottom: "1.5rem", maxWidth: "680px", fontWeight: 700, color: "white", textTransform: "uppercase", letterSpacing: "0.02em" }}>
+          {t.hero.title1}<br />
+          <span style={{ color: "var(--red-light)" }}>{t.hero.titleHighlight}</span>{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400 }}>{t.hero.title2}</em>
         </motion.h1>
 
         <motion.p custom={2} initial="hidden" animate="visible" variants={fadeUp}
           style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "rgba(255,255,255,0.8)", maxWidth: "520px", marginBottom: "2.5rem", fontFamily: "var(--font-body)" }}>
-          Kleinbusvermietung, Behindertentransport und Flughafentransfer – zuverlässig, komfortabel und barrierefrei. Ihr Mobilitätspartner aus Mosbach.
+          {t.hero.subtitle}
         </motion.p>
 
         <motion.div custom={3} initial="hidden" animate="visible" variants={fadeUp} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
           <button onClick={() => go("#kontakt")} style={{ background: "linear-gradient(135deg, var(--red), var(--red-light))", color: "white", border: "none", borderRadius: "60px", padding: "0.9rem 2.25rem", fontSize: "1rem", fontWeight: 700, fontFamily: "var(--font-body)", cursor: "pointer", transition: "all 0.3s ease" }}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 35px var(--red-glow)"; }}
             onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-            Kostenlos anfragen
+            {t.hero.ctaPrimary}
           </button>
           <a href="tel:062612526" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "white", textDecoration: "none", borderRadius: "60px", border: "2px solid rgba(255,255,255,0.3)", padding: "0.875rem 2rem", fontSize: "1rem", fontWeight: 500, fontFamily: "var(--font-body)", transition: "all 0.3s ease" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--red-light)"; e.currentTarget.style.color = "var(--red-light)"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; e.currentTarget.style.color = "white"; }}>
-            <Phone size={17} /> 06261 2526
+            <Phone size={17} /> {t.hero.ctaPhone}
           </a>
         </motion.div>
 
@@ -195,7 +197,7 @@ export default function HeroSection() {
 
         <motion.div custom={4} initial="hidden" animate="visible" variants={fadeUp} className="hero-stats"
           style={{ position: "absolute", bottom: "4.5rem", right: "2.5rem", display: "flex", gap: "3rem" }}>
-          {[{ target: 28, suffix: "", label: "Sitzplätze max." }, { target: 20, suffix: "+", label: "Jahre Erfahrung" }, { target: 6, suffix: "", label: "Rollstuhlplätze" }].map(s => (
+          {stats.map(s => (
             <div key={s.label} style={{ textAlign: "center" }}>
               <div style={{ fontFamily: "var(--font-heading)", fontSize: "2.75rem", fontWeight: 700, color: "var(--red-light)", lineHeight: 1 }}><Counter target={s.target} suffix={s.suffix} /></div>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.6)", marginTop: "0.3rem", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>{s.label}</div>
@@ -205,7 +207,7 @@ export default function HeroSection() {
       </div>
 
       <div onClick={() => go("#ueber-uns")} style={{ position: "absolute", bottom: "2.5rem", left: "50%", animation: "bounce-down 2.2s ease-in-out infinite", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
-        <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>Entdecken</span>
+        <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>{t.hero.scroll}</span>
         <div style={{ width: "1px", height: "40px", background: "linear-gradient(to bottom, var(--red-light), transparent)" }} />
         <ChevronDown size={16} style={{ color: "var(--red-light)" }} />
       </div>
