@@ -40,7 +40,7 @@ export default function Navbar() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: scrolled ? "0.75rem 2.5rem" : "1.1rem 2.5rem",
+        padding: scrolled ? "0.5rem 2rem" : "0.75rem 2rem",
         backgroundColor: "rgba(255,255,255,0.96)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -48,7 +48,7 @@ export default function Navbar() {
         transition: "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)",
       }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.7rem", textDecoration: "none" }}>
-          <img src="/logo-transparent.png" alt="H. Paul GmbH" height={22} style={{ width: "auto", display: "block", objectFit: "contain" }} />
+          <img src="/logo-transparent.png" alt="H. Paul GmbH" className="nav-logo" style={{ height: "36px", width: "auto", display: "block", objectFit: "contain" }} />
         </Link>
 
         <div className="nav-desktop">
@@ -118,7 +118,8 @@ export default function Navbar() {
 
       <style>{`
         @media (max-width: 768px) {
-          nav { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+          nav { padding: 0.5rem 1rem !important; }
+          .nav-logo { height: 28px !important; }
         }
       `}</style>
     </>
