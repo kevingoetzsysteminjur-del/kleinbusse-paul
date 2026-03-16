@@ -11,8 +11,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1.25rem" }}>
-              <img src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg" alt="H. Paul GmbH" width={42} height={42} style={{ borderRadius: "8px", objectFit: "cover" }} />
-              <span style={{ fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontWeight: 600, color: "white" }}>H. Paul <span style={{ color: "var(--red-light)" }}>GmbH</span></span>
+              <img src="/logo-transparent.png" alt="H. Paul GmbH" height={44} style={{ width: "auto", display: "block", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
             </div>
             <p style={{ fontSize: "0.875rem", lineHeight: 1.75, color: "rgba(255,255,255,0.55)", maxWidth: "240px" }}>{t.footer.brand}</p>
           </div>

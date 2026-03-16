@@ -51,11 +51,10 @@ export default function Preloader() {
         transition: "opacity 0.6s ease, transform 0.6s ease",
       }}>
         <img
-          src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg"
+          src="/logo-transparent.png"
           alt="H. Paul GmbH"
-          width={140}
-          height={75}
-          style={{ borderRadius: "12px", objectFit: "cover", display: "block" }}
+          height={70}
+          style={{ width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }}
         />
       </div>
 

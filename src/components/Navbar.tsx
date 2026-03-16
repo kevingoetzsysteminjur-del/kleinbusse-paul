@@ -48,10 +48,7 @@ export default function Navbar() {
         transition: "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)",
       }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.7rem", textDecoration: "none" }}>
-          <img src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg" alt="H. Paul GmbH" width={42} height={42} style={{ borderRadius: "8px", objectFit: "cover" }} />
-          <span style={{ fontFamily: "var(--font-heading)", fontSize: "1.15rem", fontWeight: 700, color: "var(--text-heading)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-            H. Paul <span style={{ color: "var(--red)" }}>GmbH</span>
-          </span>
+          <img src="/logo-transparent.png" alt="H. Paul GmbH" height={40} style={{ width: "auto", display: "block", objectFit: "contain" }} />
         </Link>
 
         <div className="nav-desktop">

@@ -46,7 +46,7 @@ const jsonLd = {
   },
   "openingHours": "Mo-Fr 08:00-17:00",
   "priceRange": "€€",
-  "image": "https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg",
+  "image": "/logo-transparent.png",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
