@@ -1,145 +1,98 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Preloader() {
-  const [show, setShow] = useState(false);
-  const [phase, setPhase] = useState<"logo" | "blink" | "exit">("logo");
+  const [phase, setPhase] = useState<"enter" | "blink" | "exit" | "done">("enter");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("preloader_shown")) {
-      setShow(false);
+    if (sessionStorage.getItem("preloader_done")) {
+      setPhase("done");
       return;
     }
-    setShow(true);
+
     document.body.style.overflow = "hidden";
 
-    const t1 = setTimeout(() => setPhase("blink"), 500);
+    const t1 = setTimeout(() => setPhase("blink"), 600);
     const t2 = setTimeout(() => setPhase("exit"), 1800);
     const t3 = setTimeout(() => {
-      setShow(false);
+      setPhase("done");
       document.body.style.overflow = "";
-      sessionStorage.setItem("preloader_shown", "true");
+      sessionStorage.setItem("preloader_done", "true");
     }, 2600);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
+      document.body.style.overflow = "";
     };
   }, []);
 
-  if (!show) return null;
+  if (phase === "done") return null;
 
   return (
-    <AnimatePresence>
-      {show && (
-        <>
-          {/* Top half */}
-          <motion.div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "50vh",
-              backgroundColor: "#1A1A2E",
-              zIndex: 99999,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              paddingBottom: "2.5rem",
-              overflow: "hidden",
-            }}
-            animate={phase === "exit" ? { y: "-100%" } : { y: 0 }}
-            transition={phase === "exit" ? { duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.05 } : { duration: 0 }}
-          >
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={
-                phase === "logo"
-                  ? { opacity: 1, scale: 1 }
-                  : phase === "blink"
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0.8, scale: 1 }
-              }
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}
-            >
-              <img
-                src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg"
-                alt="H. Paul GmbH"
-                width={120}
-                height={120}
-                style={{ borderRadius: "16px", objectFit: "cover" }}
-              />
-            </motion.div>
-          </motion.div>
+    <div style={{
+      position: "fixed",
+      inset: 0,
+      zIndex: 99999,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#1A1A2E",
+      clipPath: phase === "exit" ? "inset(50% 0)" : "inset(0% 0)",
+      transition: phase === "exit" ? "clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1)" : "none",
+    }}>
+      {/* Logo */}
+      <div style={{
+        opacity: phase === "enter" ? 0 : 1,
+        transform: phase === "enter" ? "scale(0.8)" : "scale(1)",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
+      }}>
+        <img
+          src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg"
+          alt="H. Paul GmbH"
+          width={140}
+          height={75}
+          style={{ borderRadius: "12px", objectFit: "cover", display: "block" }}
+        />
+      </div>
 
-          {/* Bottom half */}
-          <motion.div
-            style={{
-              position: "fixed",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: "50vh",
-              backgroundColor: "#1A1A2E",
-              zIndex: 99999,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              paddingTop: "2.5rem",
-            }}
-            animate={phase === "exit" ? { y: "100%" } : { y: 0 }}
-            transition={phase === "exit" ? { duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.05 } : { duration: 0 }}
-          >
-            {/* Text with blink effect */}
-            <motion.p
-              animate={
-                phase === "blink"
-                  ? {
-                      opacity: [1, 0.2, 1, 0.2, 1, 0.2, 1],
-                    }
-                  : { opacity: 1 }
-              }
-              transition={
-                phase === "blink"
-                  ? { duration: 1.0, times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1], ease: "linear" }
-                  : {}
-              }
-              style={{
-                fontFamily: "var(--font-heading), 'Playfair Display', serif",
-                fontSize: "1.4rem",
-                fontWeight: 600,
-                color: "white",
-                letterSpacing: "0.04em",
-              }}
-            >
-              H. Paul <span style={{ color: "#DB0F10" }}>GmbH</span>
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: phase !== "logo" ? 0.4 : 0 }}
-              transition={{ duration: 0.4 }}
-              style={{
-                fontFamily: "var(--font-body), 'DM Sans', sans-serif",
-                fontSize: "0.78rem",
-                color: "rgba(255,255,255,0.5)",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                marginTop: "0.5rem",
-              }}
-            >
-              Kleinbusvermietung · Mosbach
-            </motion.p>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+      {/* Company name */}
+      <div style={{
+        marginTop: "1.5rem",
+        fontFamily: "'Playfair Display', serif",
+        fontSize: "1.5rem",
+        fontWeight: 700,
+        color: "#FFFFFF",
+        opacity: phase === "enter" ? 0 : 1,
+        transition: "opacity 0.4s ease 0.3s",
+        animation: phase === "blink" ? "preloaderBlink 0.35s ease-in-out 4" : "none",
+      }}>
+        H. Paul <span style={{ color: "#DB0F10" }}>GmbH</span>
+      </div>
+
+      {/* Sub text */}
+      <div style={{
+        marginTop: "0.6rem",
+        fontSize: "0.75rem",
+        color: "rgba(255,255,255,0.45)",
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+        fontFamily: "sans-serif",
+        opacity: phase === "enter" ? 0 : 0.45,
+        transition: "opacity 0.5s ease 0.5s",
+      }}>
+        Kleinbusvermietung · Mosbach
+      </div>
+
+      <style>{`
+        @keyframes preloaderBlink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.15; }
+        }
+      `}</style>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useReveal } from "@/hooks/useReveal";
 import { MapPin, Phone, Printer, Mail, Clock } from "lucide-react";
 
 const inputBase: React.CSSProperties = {
@@ -20,8 +19,9 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
 }
 
 export default function KontaktSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const header = useReveal(0);
+  const infoCard = useReveal(100);
+  const form = useReveal(200);
 
   const contacts = [
     { icon: <MapPin size={18} />, label: "Adresse", value: "Am Eisweiher 14, 74821 Mosbach", href: undefined },
@@ -33,15 +33,15 @@ export default function KontaktSection() {
 
   return (
     <>
-      <section id="kontakt" ref={ref} style={{ backgroundColor: "var(--bg-white)", padding: "7rem 2.5rem" }}>
+      <section id="kontakt" style={{ backgroundColor: "var(--bg-white)", padding: "7rem 2.5rem" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <div ref={header.ref} className={`reveal ${header.visible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
             <div className="section-label" style={{ justifyContent: "center" }}>Kontakt</div>
             <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>Sprechen Sie uns an</h2>
-          </motion.div>
+          </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "2.5rem", alignItems: "start" }} className="kontakt-grid">
-            <motion.div initial={{ opacity: 0, x: -40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}
+            <div ref={infoCard.ref} className={`reveal-left ${infoCard.visible ? "visible" : ""}`}
               style={{ background: "var(--bg-off)", borderLeft: "4px solid var(--red)", borderRadius: "16px", padding: "2.5rem", boxShadow: "var(--shadow-card)" }}>
               <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, marginBottom: "2rem", color: "var(--text-heading)" }}>Hier finden Sie uns</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -59,9 +59,10 @@ export default function KontaktSection() {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.form initial={{ opacity: 0, x: 40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}
+            <div ref={form.ref} className={`reveal-right ${form.visible ? "visible" : ""}`}>
+            <form
               action="#" onSubmit={e => { e.preventDefault(); alert("Danke für Ihre Nachricht! Wir melden uns in Kürze bei Ihnen."); }}
               style={{ background: "var(--bg-off)", border: "1px solid var(--border-card)", borderRadius: "16px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.25rem", boxShadow: "var(--shadow-card)" }}>
               <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, color: "var(--text-heading)", marginBottom: "0.5rem" }}>Nachricht senden</h3>
@@ -98,7 +99,8 @@ export default function KontaktSection() {
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                 Anfrage senden
               </button>
-            </motion.form>
+            </form>
+            </div>
           </div>
         </div>
         <style>{`@media(max-width:768px){.kontakt-grid{grid-template-columns:1fr!important}.form-row-2{grid-template-columns:1fr!important}}`}</style>
