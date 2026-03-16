@@ -95,7 +95,7 @@ export default function KontaktSection() {
             <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>{t.contact.title}</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "2.5rem", alignItems: "start" }} className="kontakt-grid">
+          <div className="kontakt-grid">
             <div ref={infoCard.ref} className={`reveal-left ${infoCard.visible ? "visible" : ""}`}
               style={{ background: "var(--bg-off)", borderLeft: "4px solid var(--red)", borderRadius: "16px", padding: "2.5rem", boxShadow: "var(--shadow-card)" }}>
               <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, marginBottom: "2rem", color: "var(--text-heading)" }}>{t.contact.infoTitle}</h3>
@@ -122,11 +122,11 @@ export default function KontaktSection() {
               action="#" onSubmit={e => { e.preventDefault(); alert(t.contact.formSuccess); }}
               style={{ background: "var(--bg-off)", border: "1px solid var(--border-card)", borderRadius: "16px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.25rem", boxShadow: "var(--shadow-card)" }}>
               <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.3rem", fontWeight: 600, color: "var(--text-heading)", marginBottom: "0.5rem" }}>{t.contact.formTitle}</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row-2">
+              <div className="form-row-2">
                 <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formName} *</label><Input type="text" required placeholder={t.contact.formNamePlaceholder} /></div>
                 <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formEmail} *</label><Input type="email" required placeholder={t.contact.formEmailPlaceholder} /></div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row-2">
+              <div className="form-row-2">
                 <div><label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formPhone}</label><Input type="tel" placeholder={t.contact.formPhonePlaceholder} /></div>
                 <div>
                   <label style={{ display: "block", fontSize: "0.78rem", color: "var(--text-light)", marginBottom: "0.4rem", fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0.05em" }}>{t.contact.formService} *</label>
@@ -164,7 +164,6 @@ export default function KontaktSection() {
             </div>
           </div>
         </div>
-        <style>{`@media(max-width:768px){.kontakt-grid{grid-template-columns:1fr!important}.form-row-2{grid-template-columns:1fr!important}}`}</style>
       </section>
 
       {/* Google Maps - no grayscale filter, red top border */}

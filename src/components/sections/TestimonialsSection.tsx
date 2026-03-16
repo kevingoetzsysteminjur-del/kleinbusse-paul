@@ -79,29 +79,6 @@ export default function TestimonialsSection() {
         </div>
       </div>
 
-      <style>{`
-        .testimonials-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
-        }
-        .testimonial-card {
-          background: white;
-          border: 1px solid var(--border-card);
-          border-radius: 16px;
-          padding: 2rem;
-          display: flex;
-          flex-direction: column;
-          box-shadow: var(--shadow-card);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .testimonial-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-        }
-        @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr !important; } }
-      `}</style>
     </section>
   );
 }

@@ -97,20 +97,7 @@ function QuickRequestForm() {
         </button>
       </div>
       <style>{`
-        .quick-form-grid {
-          display: grid;
-          grid-template-columns: 1.4fr 1fr 0.8fr auto;
-          gap: 0.75rem;
-          align-items: center;
-        }
         .quick-form-grid select option { background: #1A1A2E; color: white; }
-        @media (max-width: 700px) {
-          .quick-form-grid { grid-template-columns: 1fr 1fr; }
-          .quick-form-grid > button { grid-column: 1 / -1; }
-        }
-        @media (max-width: 400px) {
-          .quick-form-grid { grid-template-columns: 1fr; }
-        }
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; cursor: pointer; }
         .quick-form-grid input::placeholder, .quick-form-grid select { color: rgba(255,255,255,0.6); }
         .quick-form-grid input:focus, .quick-form-grid select:focus { border-color: rgba(219,15,16,0.7) !important; box-shadow: 0 0 0 3px rgba(219,15,16,0.2); }
@@ -178,7 +165,7 @@ export default function HeroSection() {
           {t.hero.subtitle}
         </motion.p>
 
-        <motion.div custom={3} initial="hidden" animate="visible" variants={fadeUp} className="hero-buttons" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+        <motion.div custom={3} initial="hidden" animate="visible" variants={fadeUp} className="hero-buttons">
           <button onClick={() => go("#kontakt")} style={{ background: "linear-gradient(135deg, var(--red), var(--red-light))", color: "white", border: "none", borderRadius: "60px", padding: "0.9rem 2.25rem", fontSize: "1rem", fontWeight: 700, fontFamily: "var(--font-body)", cursor: "pointer", transition: "all 0.3s ease" }}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 35px var(--red-glow)"; }}
             onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -196,7 +183,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div custom={4} initial="hidden" animate="visible" variants={fadeUp} className="hero-stats"
-          style={{ position: "absolute", bottom: "4.5rem", right: "2.5rem", display: "flex", gap: "3rem" }}>
+          style={{ position: "absolute", bottom: "4.5rem", right: "2.5rem" }}>
           {stats.map(s => (
             <div key={s.label} style={{ textAlign: "center" }}>
               <div style={{ fontFamily: "var(--font-heading)", fontSize: "2.75rem", fontWeight: 700, color: "var(--red-light)", lineHeight: 1 }}><Counter target={s.target} suffix={s.suffix} /></div>
@@ -220,17 +207,11 @@ export default function HeroSection() {
             right: auto !important;
             margin-top: 2.5rem;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem !important;
           }
         }
         @media (max-width: 768px) {
-          .hero-stats { gap: 1.5rem !important; }
           .hero-stats > div > div:first-child { font-size: 2rem !important; }
-          .quick-form-grid { grid-template-columns: 1fr !important; }
-          .quick-form-grid > button { grid-column: 1 !important; }
           .hero-buttons { flex-direction: column !important; }
-          .hero-buttons > * { width: 100% !important; justify-content: center !important; text-align: center !important; }
           .hero-content-wrap { padding: 6rem 1.25rem 2rem !important; }
         }
         @media (max-width: 480px) {

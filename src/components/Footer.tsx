@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer style={{ backgroundColor: "var(--bg-dark)", borderTop: "3px solid var(--red)", fontFamily: "var(--font-body)" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "5rem 2.5rem 2rem" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1.2fr", gap: "3rem", marginBottom: "3.5rem" }} className="footer-grid">
+        <div className="footer-grid">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1.25rem" }}>
               <img src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/logo.jpg" alt="H. Paul GmbH" width={42} height={42} style={{ borderRadius: "8px", objectFit: "cover" }} />
@@ -52,7 +52,6 @@ export default function Footer() {
           <a href="https://contexflow.com" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none" }}>{t.footer.webdesign} <span style={{ color: "var(--red-light)" }}>Contexflow AI</span></a>
         </div>
       </div>
-      <style>{`@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:520px){.footer-grid{grid-template-columns:1fr!important}}`}</style>
     </footer>
   );
 }

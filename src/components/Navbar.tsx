@@ -54,7 +54,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }} className="nav-desktop">
+        <div className="nav-desktop">
           {navLinks.map(l => (
             <button key={l.href} onClick={() => go(l.href)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-body)", fontSize: "0.9rem", fontFamily: "var(--font-body)", fontWeight: 500, padding: "0.5rem 0.9rem", borderRadius: "8px", transition: "all 0.25s ease" }}
               onMouseEnter={e => { e.currentTarget.style.color = "var(--red)"; e.currentTarget.style.background = "rgba(219,15,16,0.06)"; }}
@@ -85,7 +85,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <button onClick={() => setMenuOpen(!menuOpen)} className="nav-hamburger" aria-label="Menu" style={{ display: "none", background: "none", border: "none", cursor: "pointer", color: "var(--text-heading)", padding: "0.25rem" }}>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="nav-hamburger" aria-label="Menu">
           {menuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </nav>
@@ -121,8 +121,6 @@ export default function Navbar() {
 
       <style>{`
         @media (max-width: 768px) {
-          .nav-desktop { display: none !important; }
-          .nav-hamburger { display: flex !important; }
           nav { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
         }
       `}</style>

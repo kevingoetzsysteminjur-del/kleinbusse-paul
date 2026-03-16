@@ -13,7 +13,7 @@ export default function BarrierefreiheitSection() {
   return (
     <section id="barrierefreiheit" style={{ backgroundColor: "var(--bg-off)", padding: "7rem 2.5rem", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "-30%", right: "-15%", width: "500px", height: "500px", pointerEvents: "none", background: "radial-gradient(circle, rgba(219,15,16,0.06) 0%, transparent 70%)", borderRadius: "50%" }} />
-      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center", position: "relative" }} className="barrier-grid">
+      <div className="barrier-grid">
         <div ref={left.ref} className={`reveal-left ${left.visible ? "visible" : ""}`} style={{ position: "relative", borderRadius: "16px", overflow: "hidden", paddingBottom: "75%", boxShadow: "0 20px 60px rgba(0,0,0,0.1)" }}>
           <img src="https://kleinbusse-paul.de/wp-content/uploads/2017/11/rollstuhlabteil.jpg" alt="Rollstuhlabteil" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         </div>
@@ -40,11 +40,6 @@ export default function BarrierefreiheitSection() {
           </button>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 768px) {
-          .barrier-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-        }
-      `}</style>
     </section>
   );
 }

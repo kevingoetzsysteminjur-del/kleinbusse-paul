@@ -58,17 +58,12 @@ export default function LeistungenSection() {
           <div className="section-label" style={{ justifyContent: "center" }}>{t.services.label}</div>
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 3.5vw, 2.9rem)", fontWeight: 700, color: "var(--text-heading)" }}>{t.services.title}</h2>
         </div>
-        <div className="card-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        <div className="card-grid">
           {services.map((s, i) => (
             <Card key={serviceIds[i]} title={s.title} desc={s.desc} img={serviceImages[i]} id={serviceIds[i]} i={i} />
           ))}
         </div>
       </div>
-      <style>{`
-        @media (max-width: 480px) {
-          #leistungen .card-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }

@@ -17,7 +17,7 @@ export default function UeberUnsSection() {
 
   return (
     <section id="ueber-uns" style={{ backgroundColor: "var(--bg-white)", padding: "7rem 2.5rem", overflow: "hidden" }}>
-      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }} className="ueber-grid">
+      <div className="ueber-grid">
         {/* Image */}
         <div ref={left.ref} className={`reveal-left ${left.visible ? "visible" : ""}`} style={{ position: "relative" }}>
           <div style={{ position: "relative", borderRadius: "16px", overflow: "hidden", paddingBottom: "75%", boxShadow: "0 30px 80px rgba(0,0,0,0.12)" }}>
@@ -36,7 +36,7 @@ export default function UeberUnsSection() {
           <p style={{ color: "var(--text-body)", lineHeight: 1.85, fontSize: "1rem", marginBottom: "2.5rem", fontFamily: "var(--font-body)" }}>
             {t.about.text}
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="features-grid">
             {features.map((f, i) => (
               <div key={f.label} className={`reveal ${right.visible ? "visible" : ""}`} style={{ transitionDelay: `${i * 80}ms`, background: "var(--bg-off)", border: "1px solid var(--border-card)", borderRadius: "12px", padding: "1rem 1.1rem", display: "flex", alignItems: "center", gap: "0.875rem", boxShadow: "var(--shadow-card)", transition: "opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(219,15,16,0.3)"; (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-hover)"; }}
@@ -48,12 +48,6 @@ export default function UeberUnsSection() {
           </div>
         </div>
       </div>
-      <style>{`
-        @media (max-width: 768px) {
-          .ueber-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-          .ueber-grid > div:first-child { max-height: 280px; }
-        }
-      `}</style>
     </section>
   );
 }
