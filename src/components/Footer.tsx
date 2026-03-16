@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1.25rem" }}>
-              <img src="/logo-transparent.png" alt="H. Paul GmbH" height={44} style={{ width: "auto", display: "block", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+              <img src="/logo-transparent.png" alt="H. Paul GmbH" height={32} style={{ width: "auto", display: "block", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
             </div>
             <p style={{ fontSize: "0.875rem", lineHeight: 1.75, color: "rgba(255,255,255,0.55)", maxWidth: "240px" }}>{t.footer.brand}</p>
           </div>

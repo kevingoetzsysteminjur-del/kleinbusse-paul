@@ -53,7 +53,7 @@ export default function Preloader() {
         <img
           src="/logo-transparent.png"
           alt="H. Paul GmbH"
-          height={70}
+          height={50}
           style={{ width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }}
         />
       </div>
