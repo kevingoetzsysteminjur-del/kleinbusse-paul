@@ -8,6 +8,7 @@ export default function WhatsAppButton() {
     <>
       <a
         href="https://wa.me/4962612526?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20Kleinbusvermietung.%20K%C3%B6nnen%20Sie%20mir%20ein%20Angebot%20machen%3F"
+        className="wa-btn"
         target="_blank"
         rel="noopener noreferrer"
         title="Schreiben Sie uns auf WhatsApp"
@@ -75,8 +76,8 @@ export default function WhatsAppButton() {
           0% { transform: scale(1); opacity: 0.8; }
           100% { transform: scale(1.8); opacity: 0; }
         }
-        @media (max-width: 640px) {
-          a[href*="wa.me"] { width: 48px !important; height: 48px !important; bottom: 1.5rem !important; right: 1.5rem !important; }
+        @media (max-width: 768px) {
+          .wa-btn { width: 48px !important; height: 48px !important; bottom: 1rem !important; right: 1rem !important; }
         }
       `}</style>
     </>

@@ -48,7 +48,12 @@ export default function UeberUnsSection() {
           </div>
         </div>
       </div>
-      <style>{`@media(max-width:768px){.ueber-grid{grid-template-columns:1fr!important;gap:3.5rem!important}}`}</style>
+      <style>{`
+        @media (max-width: 768px) {
+          .ueber-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          .ueber-grid > div:first-child { max-height: 280px; }
+        }
+      `}</style>
     </section>
   );
 }

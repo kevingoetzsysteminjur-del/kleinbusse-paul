@@ -99,7 +99,8 @@ export default function TestimonialsSection() {
           transform: translateY(-4px);
           box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
-        @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </section>
   );

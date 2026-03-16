@@ -93,7 +93,7 @@ export default function Navbar() {
       {/* Mobile overlay */}
       <div style={{ position: "fixed", inset: 0, zIndex: 99, backgroundColor: "rgba(255,255,255,0.98)", backdropFilter: "blur(20px)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem", opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "all" : "none", transition: "opacity 0.3s ease" }}>
         {navLinks.map(l => (
-          <button key={l.href} onClick={() => go(l.href)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-heading)", fontFamily: "var(--font-body)", fontSize: "1.75rem", fontWeight: 500, padding: "0.75rem 2rem", transition: "color 0.2s ease" }}
+          <button key={l.href} onClick={() => go(l.href)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-heading)", fontFamily: "var(--font-heading)", fontSize: "1.5rem", fontWeight: 600, padding: "0.75rem 2rem", transition: "color 0.2s ease", textTransform: "uppercase" }}
             onMouseEnter={e => e.currentTarget.style.color = "var(--red)"}
             onMouseLeave={e => e.currentTarget.style.color = "var(--text-heading)"}>
             {l.label}
@@ -120,8 +120,11 @@ export default function Navbar() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) { .nav-desktop { display: none !important; } .nav-hamburger { display: block !important; } }
-        @media (max-width: 640px) { nav { padding-left: 1.25rem !important; padding-right: 1.25rem !important; } }
+        @media (max-width: 768px) {
+          .nav-desktop { display: none !important; }
+          .nav-hamburger { display: flex !important; }
+          nav { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+        }
       `}</style>
     </>
   );

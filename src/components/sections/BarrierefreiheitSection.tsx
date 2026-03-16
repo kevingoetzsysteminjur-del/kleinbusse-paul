@@ -40,7 +40,11 @@ export default function BarrierefreiheitSection() {
           </button>
         </div>
       </div>
-      <style>{`@media(max-width:768px){.barrier-grid{grid-template-columns:1fr!important;gap:3.5rem!important}}`}</style>
+      <style>{`
+        @media (max-width: 768px) {
+          .barrier-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

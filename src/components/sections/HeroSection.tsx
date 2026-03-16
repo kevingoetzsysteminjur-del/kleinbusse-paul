@@ -159,7 +159,7 @@ export default function HeroSection() {
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,26,46,0.9) 0%, rgba(26,26,46,0.75) 55%, rgba(26,26,46,0.85) 100%)" }} />
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "200px", background: "linear-gradient(to top, rgba(26,26,46,1) 0%, transparent 100%)" }} />
 
-      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "1280px", margin: "0 auto", padding: "7rem 2.5rem 5rem" }}>
+      <div className="hero-content-wrap" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "1280px", margin: "0 auto", padding: "7rem 2.5rem 5rem" }}>
         <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}
           style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginBottom: "2rem", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(219,15,16,0.6)", borderRadius: "50px", padding: "0.45rem 1.1rem", backdropFilter: "blur(10px)" }}>
           <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "var(--red-light)", flexShrink: 0, animation: "red-pulse 2.5s ease-in-out infinite", display: "inline-block" }} />
@@ -167,18 +167,18 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.h1 custom={1} initial="hidden" animate="visible" variants={fadeUp}
-          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 1.08, marginBottom: "1.5rem", maxWidth: "680px", fontWeight: 700, color: "white", textTransform: "uppercase", letterSpacing: "0.02em" }}>
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.8rem, 7vw, 5rem)", lineHeight: 1.08, marginBottom: "1.5rem", maxWidth: "680px", fontWeight: 700, color: "white", textTransform: "uppercase", letterSpacing: "0.02em" }}>
           {t.hero.title1}<br />
           <span style={{ color: "var(--red-light)" }}>{t.hero.titleHighlight}</span>{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400 }}>{t.hero.title2}</em>
         </motion.h1>
 
         <motion.p custom={2} initial="hidden" animate="visible" variants={fadeUp}
-          style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "rgba(255,255,255,0.8)", maxWidth: "520px", marginBottom: "2.5rem", fontFamily: "var(--font-body)" }}>
+          style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)", lineHeight: 1.8, color: "rgba(255,255,255,0.8)", maxWidth: "520px", marginBottom: "2.5rem", fontFamily: "var(--font-body)" }}>
           {t.hero.subtitle}
         </motion.p>
 
-        <motion.div custom={3} initial="hidden" animate="visible" variants={fadeUp} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+        <motion.div custom={3} initial="hidden" animate="visible" variants={fadeUp} className="hero-buttons" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
           <button onClick={() => go("#kontakt")} style={{ background: "linear-gradient(135deg, var(--red), var(--red-light))", color: "white", border: "none", borderRadius: "60px", padding: "0.9rem 2.25rem", fontSize: "1rem", fontWeight: 700, fontFamily: "var(--font-body)", cursor: "pointer", transition: "all 0.3s ease" }}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 35px var(--red-glow)"; }}
             onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -213,8 +213,29 @@ export default function HeroSection() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) { .hero-stats { position: relative !important; bottom: auto !important; right: auto !important; margin-top: 3.5rem; justify-content: center; } }
-        @media (max-width: 480px) { .hero-stats { gap: 2rem !important; } }
+        @media (max-width: 900px) {
+          .hero-stats {
+            position: relative !important;
+            bottom: auto !important;
+            right: auto !important;
+            margin-top: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-stats { gap: 1.5rem !important; }
+          .hero-stats > div > div:first-child { font-size: 2rem !important; }
+          .quick-form-grid { grid-template-columns: 1fr !important; }
+          .quick-form-grid > button { grid-column: 1 !important; }
+          .hero-buttons { flex-direction: column !important; }
+          .hero-buttons > * { width: 100% !important; justify-content: center !important; text-align: center !important; }
+          .hero-content-wrap { padding: 6rem 1.25rem 2rem !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-stats > div { min-width: 80px; }
+        }
       `}</style>
     </section>
   );

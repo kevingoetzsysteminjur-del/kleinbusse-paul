@@ -19,7 +19,7 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div style={{
+    <div className="cookie-inner" style={{
       position: "fixed",
       bottom: 0,
       left: 0,
@@ -41,7 +41,7 @@ export default function CookieBanner() {
         Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten.{" "}
         <Link href="/datenschutz" style={{ color: "#DB0F10", textDecoration: "underline" }}>Datenschutzerklärung</Link>
       </p>
-      <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0, flexWrap: "wrap" }}>
+      <div className="cookie-btns" style={{ display: "flex", gap: "0.75rem", flexShrink: 0, flexWrap: "wrap" }}>
         <button
           onClick={() => accept("necessary")}
           style={{ background: "transparent", color: "rgba(255,255,255,0.7)", border: "1.5px solid rgba(255,255,255,0.25)", borderRadius: "50px", padding: "0.55rem 1.25rem", fontSize: "0.85rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-body), sans-serif", transition: "all 0.2s ease", whiteSpace: "nowrap" }}
@@ -65,8 +65,9 @@ export default function CookieBanner() {
           to { transform: translateY(0); opacity: 1; }
         }
         @media (max-width: 640px) {
-          .cookie-buttons { flex-direction: column !important; width: 100%; }
-          .cookie-buttons button { width: 100%; justify-content: center; }
+          .cookie-inner { flex-direction: column !important; align-items: stretch !important; }
+          .cookie-btns { width: 100% !important; }
+          .cookie-btns button { flex: 1 !important; }
         }
       `}</style>
     </div>
